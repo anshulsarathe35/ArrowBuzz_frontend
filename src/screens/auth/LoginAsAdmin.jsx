@@ -184,21 +184,21 @@ export const LoginAsAdmin = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    adminsecret: "", // ✅ Added adminsecret in initial state
+    adminsecret: "", 
   });
 
   const navigate = useNavigate();
 
-  // ✅ Prevent admin login if already logged in as admin
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
     if (token && role === "admin") {
-      navigate("/admin-dashboard"); // ✅ Redirect to admin dashboard
+      // navigate("/admin-dashboard"); 
+      navigate("/");
     }
   }, [navigate]);
 
-  // ✅ Handle Input Change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -207,7 +207,6 @@ export const LoginAsAdmin = () => {
     });
   };
 
-  // ✅ Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -218,13 +217,11 @@ export const LoginAsAdmin = () => {
       adminsecret: adminsecret.trim(),
     };
 
-    // ✅ Validate Input Fields
     if (!trimmedData.email || !trimmedData.password || !trimmedData.adminsecret) {
       alert("Please fill in all required fields.");
       return;
     }
 
-    // ✅ API Call for Admin Login
     try {
       if (trimmedData.adminsecret === "capstone") {
         const response = await axios.post(
@@ -236,16 +233,17 @@ export const LoginAsAdmin = () => {
           }
         );
 
-        // ✅ Store Token & Role
+        
         const { token, role } = response.data;
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
 
-        // ✅ Redirect to Admin Dashboard
+        
         alert("Welcome Admin! You have successfully logged in.");
-        navigate("/admin-dashboard");
+        navigate("/");
+        // navigate("/admin-dashboard");
 
-        // ✅ Clear Form Fields
+        
         setFormData({
           email: "",
           password: "",
@@ -262,7 +260,7 @@ export const LoginAsAdmin = () => {
 
   return (
     <section className="register pt-16 relative">
-      {/* ✅ Background Design */}
+      
       <div className="bg-green w-96 h-96 rounded-full opacity-20 blur-3xl absolute top-2/3"></div>
       <div className="bg-gradient-to-r from-blue-900 to-purple-500 pt-8 h-[40vh] relative content">
         <Container>
@@ -277,7 +275,7 @@ export const LoginAsAdmin = () => {
         </Container>
       </div>
 
-      {/* ✅ Admin Login Form */}
+      
       <form
         className="bg-white shadow-s3 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 m-auto my-16 p-8 rounded-xl"
         onSubmit={handleSubmit}
@@ -292,7 +290,7 @@ export const LoginAsAdmin = () => {
           </p>
         </div>
 
-        {/* ✅ Email Input */}
+        
         <div className="py-5 mt-8">
           <Caption className="mb-2">Enter Your Email *</Caption>
           <input
@@ -306,7 +304,7 @@ export const LoginAsAdmin = () => {
           />
         </div>
 
-        {/* ✅ Password Input */}
+        
         <div>
           <Caption className="mb-2">Password *</Caption>
           <input
@@ -320,7 +318,7 @@ export const LoginAsAdmin = () => {
           />
         </div>
 
-        {/* ✅ Admin Secret Input */}
+       
         <div className="mt-5">
           <Caption className="mb-2">Admin Secret *</Caption>
           <input
@@ -334,19 +332,18 @@ export const LoginAsAdmin = () => {
           />
         </div>
 
-        {/* ✅ Terms Checkbox */}
+       
         <div className="flex items-center gap-2 py-4">
           <input type="checkbox" required />
           <Caption>I agree to the Terms & Conditions</Caption>
         </div>
 
-        {/* ✅ Login Button */}
+       
         <PrimaryButton type="submit" className="w-full rounded-none my-5 uppercase">
           Login as Admin
         </PrimaryButton>
       </form>
 
-      {/* ✅ Bottom Green Blur Effect */}
       <div className="bg-green w-96 h-96 rounded-full opacity-20 blur-3xl absolute bottom-96 right-0"></div>
     </section>
   );

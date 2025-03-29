@@ -399,6 +399,230 @@
 
 //anshul frontend new
 
+// import React, { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import {
+//   Caption,
+//   Container,
+//   CustomNavLink,
+//   PrimaryButton,
+//   Title,
+// } from "../../router";
+// import { commonClassNameOfInput } from "../../components/common/Design";
+// import axios from "axios";
+
+// export const Register = () => {
+//   const [formData, setFormData] = useState({
+//     name: "",
+//     email: "",
+//     password: "",
+//     confirmPassword: "",
+//     photo: null, 
+//   });
+
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const token = localStorage.getItem("token");
+//     if (token) {
+//       navigate("/"); 
+//     }
+//   }, [navigate]);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleFileChange = (e) => {
+//     setFormData({
+//       ...formData,
+//       photo: e.target.files[0],
+//     });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     const { name, email, password, confirmPassword, photo } = formData;
+
+//     if (!name || !email || !password || !confirmPassword) {
+//       alert("Please fill in all required fields.");
+//       return;
+//     }
+
+//     if (password !== confirmPassword) {
+//       alert("Passwords do not match.");
+//       return;
+//     }
+//     const formDataToSend = new FormData();
+//     formDataToSend.append("name", name.trim());
+//     formDataToSend.append("email", email.trim());
+//     formDataToSend.append("password", password.trim());
+//     formDataToSend.append("confirmPassword", confirmPassword.trim());
+
+//     if (photo) {
+//       formDataToSend.append("photo", photo);
+//     }
+
+//     try {
+//       const response = await axios.post(
+//         "http://localhost:5001/api/users/register",
+//         formDataToSend,
+//         {
+//           headers: {
+//             "Content-Type": "multipart/form-data", // Important for Multer
+//           },
+//           withCredentials: true,
+//         }
+//       );
+
+//       const { token, role } = response.data;
+
+//       localStorage.setItem("token", token);
+//       localStorage.setItem("role", role);
+
+//       alert("Registration successful!");
+//       navigate("/");
+
+//       setFormData({
+//         name: "",
+//         email: "",
+//         password: "",
+//         confirmPassword: "",
+//         photo: null,
+//       });
+//     } catch (error) {
+//       console.error("Error in register:", error.response?.data || error.message);
+//       alert(error.response?.data?.message || "Registration failed.");
+//     }
+//   };
+
+//   return (
+//     <section className="register pt-16 relative bg-gradient-to-r from-blue-900 to-purple-500">
+//       <div className="bg-[#1B1A55] pt-8 h-[40vh] relative">
+//         <Container>
+//           <div>
+//             <Title level={3} className="text-white">Sign Up</Title>
+//             <div className="flex items-center gap-3 mt-2">
+//               <Title level={5} className="text-green-400 font-normal text-lg">
+//                 Home
+//               </Title>
+//               <Title level={5} className="text-white font-normal text-lg">/</Title>
+//               <Title level={5} className="text-white font-normal text-lg">
+//                 Sign Up
+//               </Title>
+//             </div>
+//           </div>
+//         </Container>
+//       </div>
+
+//       <form
+//         onSubmit={handleSubmit}
+//         className="bg-white shadow-lg w-full sm:w-2/3 md:w-1/2 lg:w-1/3 m-auto my-16 p-10 rounded-2xl"
+//         encType="multipart/form-data"
+//       >
+//         <div className="text-center">
+//           <Title level={5} className="text-blue-900">
+//             Create Your Account
+//           </Title>
+//           <p className="mt-2 text-lg text-gray-500">
+//             Already have an account?{" "}
+//             <CustomNavLink href="/login" className="text-blue-600 underline">
+//               Log In Here
+//             </CustomNavLink>
+//           </p>
+//         </div>
+
+//         <div className="py-5">
+//           <Caption className="mb-2 text-gray-600">Username *</Caption>
+//           <input
+//             type="text"
+//             name="name"
+//             className={commonClassNameOfInput}
+//             placeholder="Enter your name"
+//             value={formData.name}
+//             onChange={handleChange}
+//             required
+//           />
+//         </div>
+
+//         <div className="py-5">
+//           <Caption className="mb-2 text-gray-600">Enter Your Email *</Caption>
+//           <input
+//             type="email"
+//             name="email"
+//             className={commonClassNameOfInput}
+//             placeholder="Enter Your Email"
+//             value={formData.email}
+//             onChange={handleChange}
+//             required
+//           />
+//         </div>
+
+//         <div>
+//           <Caption className="mb-2 text-gray-600">Password *</Caption>
+//           <input
+//             type="password"
+//             name="password"
+//             className={commonClassNameOfInput}
+//             placeholder="Enter Your Password"
+//             value={formData.password}
+//             onChange={handleChange}
+//             required
+//           />
+//         </div>
+
+//         <div className="mt-5">
+//           <Caption className="mb-2 text-gray-600">Confirm Password *</Caption>
+//           <input
+//             type="password"
+//             name="confirmPassword"
+//             className={commonClassNameOfInput}
+//             placeholder="Confirm your password"
+//             value={formData.confirmPassword}
+//             onChange={handleChange}
+//             required
+//           />
+//         </div>
+
+//         <div className="py-5">
+//           <Caption className="mb-2 text-gray-600">Upload Profile Picture</Caption>
+//           <input
+//             type="file"
+//             name="photo"
+//             className={commonClassNameOfInput}
+//             onChange={handleFileChange}
+//             accept="image/*"
+//           />
+//         </div>
+
+//         <div className="flex items-center gap-2 py-4">
+//           <input type="checkbox" required />
+//           <Caption className="text-gray-500">
+//             I agree to the{" "}
+//             <span className="text-blue-500 underline cursor-pointer">
+//               Terms & Policy
+//             </span>
+//           </Caption>
+//         </div>
+
+//         <PrimaryButton
+//           type="submit"
+//           className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg my-5 uppercase"
+//         >
+//           Create Account
+//         </PrimaryButton>
+//       </form>
+//     </section>
+//   );
+// };
+
+
+//anshul new froentend 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -415,22 +639,21 @@ export const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phoneNo: "", // ✅ Added phoneNo
     password: "",
     confirmPassword: "",
-    photo: null, // ✅ File state
+    photo: null,
   });
 
   const navigate = useNavigate();
 
-  // ✅ Prevent access if logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/"); // Redirect to Home if logged in
+      navigate("/");
     }
   }, [navigate]);
 
-  // ✅ Handle Input Change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -439,7 +662,6 @@ export const Register = () => {
     });
   };
 
-  // ✅ Handle File Change
   const handleFileChange = (e) => {
     setFormData({
       ...formData,
@@ -447,14 +669,12 @@ export const Register = () => {
     });
   };
 
-  // ✅ Handle Form Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { name, email, password, confirmPassword, photo } = formData;
+    const { name, email, phoneNo, password, confirmPassword, photo } = formData;
 
-    // ✅ Basic Validation
-    if (!name || !email || !password || !confirmPassword) {
+    if (!name || !email || !phoneNo || !password || !confirmPassword) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -464,10 +684,10 @@ export const Register = () => {
       return;
     }
 
-    // ✅ Create FormData Object to Send File
     const formDataToSend = new FormData();
     formDataToSend.append("name", name.trim());
     formDataToSend.append("email", email.trim());
+    formDataToSend.append("phoneNo", phoneNo.trim()); // ✅ Added phoneNo
     formDataToSend.append("password", password.trim());
     formDataToSend.append("confirmPassword", confirmPassword.trim());
 
@@ -475,33 +695,30 @@ export const Register = () => {
       formDataToSend.append("photo", photo);
     }
 
-    // ✅ API Call with Multer Configuration
     try {
       const response = await axios.post(
         "http://localhost:5001/api/users/register",
         formDataToSend,
         {
           headers: {
-            "Content-Type": "multipart/form-data", // Important for Multer
+            "Content-Type": "multipart/form-data",
           },
           withCredentials: true,
         }
       );
 
-      // ✅ Extract Token & Role
       const { token, role } = response.data;
 
-      // ✅ Save Token & Role in LocalStorage
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
 
       alert("Registration successful!");
       navigate("/");
 
-      // ✅ Clear Form Fields
       setFormData({
         name: "",
         email: "",
+        phoneNo: "",
         password: "",
         confirmPassword: "",
         photo: null,
@@ -531,7 +748,6 @@ export const Register = () => {
         </Container>
       </div>
 
-      {/* ✅ Registration Form */}
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg w-full sm:w-2/3 md:w-1/2 lg:w-1/3 m-auto my-16 p-10 rounded-2xl"
@@ -549,7 +765,6 @@ export const Register = () => {
           </p>
         </div>
 
-        {/* ✅ Username Input */}
         <div className="py-5">
           <Caption className="mb-2 text-gray-600">Username *</Caption>
           <input
@@ -563,7 +778,6 @@ export const Register = () => {
           />
         </div>
 
-        {/* ✅ Email Input */}
         <div className="py-5">
           <Caption className="mb-2 text-gray-600">Enter Your Email *</Caption>
           <input
@@ -577,7 +791,19 @@ export const Register = () => {
           />
         </div>
 
-        {/* ✅ Password Input */}
+        <div className="py-5">
+          <Caption className="mb-2 text-gray-600">Phone Number *</Caption>
+          <input
+            type="tel"
+            name="phoneNo"
+            className={commonClassNameOfInput}
+            placeholder="Enter your phone number"
+            value={formData.phoneNo}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
         <div>
           <Caption className="mb-2 text-gray-600">Password *</Caption>
           <input
@@ -591,7 +817,6 @@ export const Register = () => {
           />
         </div>
 
-        {/* ✅ Confirm Password Input */}
         <div className="mt-5">
           <Caption className="mb-2 text-gray-600">Confirm Password *</Caption>
           <input
@@ -605,7 +830,6 @@ export const Register = () => {
           />
         </div>
 
-        {/* ✅ File Upload */}
         <div className="py-5">
           <Caption className="mb-2 text-gray-600">Upload Profile Picture</Caption>
           <input
@@ -617,7 +841,6 @@ export const Register = () => {
           />
         </div>
 
-        {/* ✅ Terms & Policy Agreement */}
         <div className="flex items-center gap-2 py-4">
           <input type="checkbox" required />
           <Caption className="text-gray-500">
@@ -628,7 +851,6 @@ export const Register = () => {
           </Caption>
         </div>
 
-        {/* ✅ Submit Button */}
         <PrimaryButton
           type="submit"
           className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg my-5 uppercase"

@@ -221,7 +221,7 @@ export const Footer = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <MdOutlineAttachEmail size={22} />
-                  <span>support@arrowbuzz.com</span>
+                  <span>arrowbuzz.notifications@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <IoLocationOutline size={22} />

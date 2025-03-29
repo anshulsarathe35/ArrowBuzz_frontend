@@ -5,7 +5,7 @@ import { Caption, Title } from "../../router";
 import { commonClassNameOfInput, PrimaryButton } from "../../components/common/Design";
 
 export const ParticularUserProfile = () => {
-  const { id } = useParams(); // Get ID from URL params
+  const { id } = useParams(); 
 
   const [user, setUser] = useState({
     name: "",
@@ -15,14 +15,12 @@ export const ParticularUserProfile = () => {
     photo: "",
   });
 
-  // ✅ Fetch Particular User Details from Backend API
   const fetchUserDetails = async () => {
     try {
       const response = await axios.get(`http://localhost:5001/api/users/get-particularuser/${id}`, {
         withCredentials: true,
       });
 
-      // ✅ Set User Details from API Response
       setUser(response.data);
     } catch (error) {
       console.error("Failed to fetch user details:", error);
@@ -33,13 +31,11 @@ export const ParticularUserProfile = () => {
     fetchUserDetails();
   }, [id]);
 
-  // ✅ Handle Input Change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  // ✅ Update User Details
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
@@ -57,7 +53,7 @@ export const ParticularUserProfile = () => {
   return (
     <>
       <section className="shadow-s1 p-8 rounded-lg">
-        {/* ✅ Profile Header */}
+        
         <div className="profile flex items-center gap-8">
         <img
             src={user.photo || "https://img.freepik.com/premium-photo/profile-icon-white-background_941097-162486.jpg"}
@@ -73,7 +69,7 @@ export const ParticularUserProfile = () => {
           </div>
         </div>
 
-        {/* ✅ Profile Form */}
+       
         <form onSubmit={handleUpdate}>
           <div className="flex items-center gap-5 mt-10">
             <div className="w-full">
@@ -137,8 +133,6 @@ export const ParticularUserProfile = () => {
             />
           </div>
 
-          {/* ✅ Update Button */}
-          {/* <PrimaryButton type="submit">Update Profile</PrimaryButton> */}
         </form>
       </section>
     </>

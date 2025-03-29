@@ -59,3 +59,6 @@ export {LoginAsServicemen} from "../screens/auth/LoginAsServicemen";
 export {LoginAsAdmin} from "../screens/auth/LoginAsAdmin";
 export { UserProfile } from "../screens/auth/UserProfile";
 export { ParticularUserProfile } from "../screens/auth/ParticularUserProfile";
+
+export {About} from "../screens/home/About"
+export {ContactUs} from "../screens/home/ContactUs"

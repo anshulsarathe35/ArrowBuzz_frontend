@@ -28,7 +28,11 @@ import {
   //raj
   SingleViewDetails,
   AllSoldServices,
-  ParticularUserProfile
+  ParticularUserProfile,
+
+  //anshul
+  About,
+  ContactUs
   
 } from "./router/index.js";
 
@@ -51,6 +55,24 @@ function App() {
             element={
               <Layout>
                 <Login />
+              </Layout>
+            }
+          />
+
+          {/* anshul frontend new */}
+          <Route
+            path="/about"
+            element={
+              <Layout>
+                <About />
+              </Layout>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <Layout>
+                <ContactUs />
               </Layout>
             }
           />

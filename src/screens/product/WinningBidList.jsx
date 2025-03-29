@@ -207,6 +207,7 @@ export const WinningBidList = () => {
                       Added By: {serviceOwner?.name || "Unknown"}
                     </p>
                     <p className="text-gray-500 text-sm">{serviceOwner?.email || "N/A"}</p>
+                    <p className="text-gray-500 text-sm">{serviceOwner?.phoneNo || "N/A"}</p>
                   </div>
                 </div>
 

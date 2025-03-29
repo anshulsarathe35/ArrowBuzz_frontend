@@ -287,7 +287,7 @@ export const UserProfile = () => {
 
   return (
     <>
-      <section className="shadow-s1 p-8 rounded-xl bg-gray-200 shadow-2xl">
+      <section className="p-8 rounded-xl bg-gray-200 shadow-2xl">
    
         <div className="profile flex items-center gap-8">
           <img
