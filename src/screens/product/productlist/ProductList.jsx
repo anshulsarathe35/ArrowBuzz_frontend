@@ -222,23 +222,58 @@ import { NavLink } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 
 export const ProductList = () => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   
-  let imageUrl = "";
+  // let imageUrl = "";
+  // const fetchProducts = async () => {
+  //   const token = localStorage.getItem("token"); 
+  //   try {
+  //     const response = await axios.get("http://localhost:5001/api/service/user", {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`, 
+  //       },
+  //     });
+  //     setProducts(response.data);
+  //     console.log(response)
+  //     imageUrl = response?.data?.image?.filePath
+  //     // console.log(imageUrl)
+  //   ? `http://localhost:5001/${response.image.filePath}`
+  //   : "../images/home/hero.webp";
+  //   } catch (error) {
+  //     console.error("Error fetching products:", error);
+  //   }
+  // };
+  // console.log(imageUrl)
+
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
+
+  //anshul frontend new
+  const [products, setProducts] = useState([]);
+  const [imageUrl, setImageUrl] = useState("");
+
   const fetchProducts = async () => {
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.get("http://localhost:5001/api/service/user", {
-        method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       });
-      setProducts(response.data);
-      imageUrl = response?.image?.filePath
-    ? `http://localhost:5001/${response.image.filePath}`
-    : "../images/home/hero.webp";
+
+      setProducts(response.data); 
+      console.log(response);
+      const filePath = response?.data[0]?.image?.filePath;
+
+      if (filePath) {
+        setImageUrl(`http://localhost:5001/${filePath}`);
+      } else {
+        setImageUrl("../images/home/hero.webp"); 
+      }
     } catch (error) {
       console.error("Error fetching products:", error);
     }

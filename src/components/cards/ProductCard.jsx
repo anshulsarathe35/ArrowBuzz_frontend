@@ -198,8 +198,9 @@ export const ProductCard = ({ item }) => {
 
        
           <div className="flex items-center justify-between mt-3">
+          <NavLink to={`/details/${item?._id}`}>
             <PrimaryButton className="rounded-lg text-sm w-full">Place Bid</PrimaryButton>
-            
+           </NavLink> 
           </div>
         </div>
       </div>
