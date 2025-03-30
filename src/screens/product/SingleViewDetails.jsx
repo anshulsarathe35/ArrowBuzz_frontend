@@ -474,6 +474,15 @@ export const SingleViewDetails = () => {
                 <Caption className="text-red-400">{timeLeft}</Caption>
               </div>
 
+              {/* anshul frontend timer update for auction ended */}
+
+              {/* <div className="flex justify-between py-3">
+              <Title>Time Left</Title>
+              <Caption className={`text-${soldToPhoneNo ? "gray-500" : "red-400"}`}>
+                {soldToPhoneNo ? "Auction Ended" : timeLeft}
+              </Caption>
+            </div> */}
+
               <div className="flex justify-between py-3">
                 <button
                   type="button"

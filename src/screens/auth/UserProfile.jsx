@@ -193,6 +193,191 @@
 
 //anshul frontend new 
 
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import { Caption, Title } from "../../router";
+// import {
+//   commonClassNameOfInput,
+//   PrimaryButton,
+// } from "../../components/common/Design";
+
+// export const UserProfile = () => {
+//   const [user, setUser] = useState({
+//     name: "",
+//     email: "",
+//     phoneNo: "",
+//     role: "",
+//     photo: "",
+//   });
+
+//   const [photoFile, setPhotoFile] = useState(null); 
+
+
+//   const fetchUserDetails = async () => {
+//     try {
+//       const response = await axios.get(
+//         "http://localhost:5001/api/users/getuser",
+//         {
+//           withCredentials: true,
+//         }
+//       );
+
+//       const userData = response.data;
+//       setUser({
+//         ...userData,
+//         photo: userData.photo
+//           ? `http://localhost:5001${userData.photo}`
+//           : "/images/user-default.png",
+//       });
+//     } catch (error) {
+//       console.error("Failed to fetch user details:", error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchUserDetails();
+//   }, []);
+
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setUser({ ...user, [name]: value });
+//   };
+
+
+//   const handleFileChange = (e) => {
+//     setPhotoFile(e.target.files[0]);
+//   };
+
+
+//   const handleUpdate = async (e) => {
+//     e.preventDefault();
+
+//     try {
+//       const formData = new FormData();
+//       formData.append("name", user.name);
+//       formData.append("email", user.email);
+//       formData.append("phoneNo", user.phoneNo);
+//       formData.append("role", user.role);
+
+ 
+//       if (photoFile) {
+//         formData.append("photo", photoFile);
+//       }
+
+     
+//       const response = await axios.put(
+//         `http://localhost:5001/api/users/updateprofile/${user._id}`,
+//         formData,
+//         {
+//           withCredentials: true,
+//           headers: {
+//             "Content-Type": "multipart/form-data",
+//           },
+//         }
+//       );
+
+//       alert("Profile updated successfully!");
+//       fetchUserDetails(); 
+//     } catch (error) {
+//       console.error("Failed to update profile:", error);
+//       alert("Failed to update profile.");
+//     }
+//   };
+
+//   return (
+//     <>
+//       <section className="p-8 rounded-xl bg-gray-200 shadow-2xl">
+   
+//         <div className="profile flex items-center gap-8">
+//           <img
+//             src={user.photo}
+//             alt="Profile"
+//             className="w-24 h-24 rounded-full object-cover shadow-lg border-4 border-white"
+//             onError={(e) => {
+//               e.target.onerror = null;
+//               e.target.src = "/images/user-default.png"; 
+//             }}
+//           />
+//           <div>
+//             <Title level={5} className="capitalize">
+//               {user.name || "Loading..."}
+//             </Title>
+//             <Caption>{user.email || "Loading..."}</Caption>
+//           </div>
+//         </div>
+
+      
+//         <form onSubmit={handleUpdate} encType="multipart/form-data">
+//           <div className="flex items-center gap-5 mt-10">
+//             <div className="w-full">
+//               <Caption className="mb-2">Full Name</Caption>
+//               <input
+//                 type="text"
+//                 name="name"
+//                 className={`capitalize ${commonClassNameOfInput} rounded-xl shadow-lg`}
+//                 value={user.name}
+//                 onChange={handleChange}
+//               />
+//             </div>
+//           </div>
+
+//           <div className="flex items-center gap-5 mt-10">
+//             <div className="w-1/2">
+//               <Caption className="mb-2">Contact Number</Caption>
+//               <input
+//                 type="text"
+//                 name="phoneNo"
+//                 className= {`${commonClassNameOfInput} rounded-xl shadow-lg`}
+//                 value={user.phoneNo}
+//                 onChange={handleChange}
+//               />
+//             </div>
+//             <div className="w-1/2">
+//               <Caption className="mb-2">Email</Caption>
+//               <input
+//                 type="text"
+//                 name="email"
+//                 className={`${commonClassNameOfInput} rounded-xl shadow-lg`}
+//                 value={user.email}
+//                 onChange={user.role === "admin" ? handleChange : undefined} 
+//                 readOnly 
+//               />
+//             </div>
+//           </div>
+
+//           <div className="my-8">
+//             <Caption className="mb-2">Role</Caption>
+//             <input
+//               type="text"
+//               className={`${commonClassNameOfInput} rounded-xl shadow-lg`}
+//               value={user.role}
+//               readOnly
+//             />
+//           </div>
+
+         
+//           <div className="my-8">
+//             <Caption className="mb-2">Profile Picture</Caption>
+//             <input
+//               type="file"
+//               name="photo"
+//               className={`${commonClassNameOfInput} rounded-xl shadow-lg`}
+//               accept="image/*"
+//               onChange={handleFileChange}
+//             />
+//           </div>
+
+        
+//           <PrimaryButton type="submit">Update Profile</PrimaryButton>
+//         </form>
+//       </section>
+//     </>
+//   );
+// };
+
+
+//anshul profile update correction
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Caption, Title } from "../../router";
@@ -203,6 +388,7 @@ import {
 
 export const UserProfile = () => {
   const [user, setUser] = useState({
+    _id: "",
     name: "",
     email: "",
     phoneNo: "",
@@ -211,7 +397,6 @@ export const UserProfile = () => {
   });
 
   const [photoFile, setPhotoFile] = useState(null); 
-
 
   const fetchUserDetails = async () => {
     try {
@@ -225,6 +410,7 @@ export const UserProfile = () => {
       const userData = response.data;
       setUser({
         ...userData,
+        _id: userData._id, 
         photo: userData.photo
           ? `http://localhost:5001${userData.photo}`
           : "/images/user-default.png",
@@ -238,17 +424,14 @@ export const UserProfile = () => {
     fetchUserDetails();
   }, []);
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-
   const handleFileChange = (e) => {
     setPhotoFile(e.target.files[0]);
   };
-
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -260,14 +443,12 @@ export const UserProfile = () => {
       formData.append("phoneNo", user.phoneNo);
       formData.append("role", user.role);
 
- 
       if (photoFile) {
         formData.append("photo", photoFile);
       }
 
-     
       const response = await axios.put(
-        `http://localhost:5001/api/users/updateprofile/${user._id}`,
+        `http://localhost:5001/api/users/updateprofile`,
         formData,
         {
           withCredentials: true,
@@ -288,7 +469,7 @@ export const UserProfile = () => {
   return (
     <>
       <section className="p-8 rounded-xl bg-gray-200 shadow-2xl">
-   
+
         <div className="profile flex items-center gap-8">
           <img
             src={user.photo}
@@ -296,7 +477,7 @@ export const UserProfile = () => {
             className="w-24 h-24 rounded-full object-cover shadow-lg border-4 border-white"
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = "/images/user-default.png"; 
+              e.target.src = "/images/user-default.png";
             }}
           />
           <div>
@@ -307,7 +488,6 @@ export const UserProfile = () => {
           </div>
         </div>
 
-      
         <form onSubmit={handleUpdate} encType="multipart/form-data">
           <div className="flex items-center gap-5 mt-10">
             <div className="w-full">
@@ -328,7 +508,7 @@ export const UserProfile = () => {
               <input
                 type="text"
                 name="phoneNo"
-                className= {`${commonClassNameOfInput} rounded-xl shadow-lg`}
+                className={`${commonClassNameOfInput} rounded-xl shadow-lg`}
                 value={user.phoneNo}
                 onChange={handleChange}
               />
@@ -340,8 +520,7 @@ export const UserProfile = () => {
                 name="email"
                 className={`${commonClassNameOfInput} rounded-xl shadow-lg`}
                 value={user.email}
-                onChange={user.role === "admin" ? handleChange : undefined} 
-                readOnly 
+                readOnly
               />
             </div>
           </div>
@@ -356,7 +535,6 @@ export const UserProfile = () => {
             />
           </div>
 
-         
           <div className="my-8">
             <Caption className="mb-2">Profile Picture</Caption>
             <input
@@ -368,7 +546,6 @@ export const UserProfile = () => {
             />
           </div>
 
-        
           <PrimaryButton type="submit">Update Profile</PrimaryButton>
         </form>
       </section>

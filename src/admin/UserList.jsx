@@ -145,7 +145,7 @@ export const UserList = () => {
   }, []);
 
   return (
-    <section className="bg-white shadow-lg p-8 rounded-3xl text-black">
+    <section className="bg-gradient-to-b from-blue-50 to-white shadow-2xl p-8 rounded-3xl text-black">
       <div className="flex justify-between mb-6">
         <Title level={5} className="font-bold text-2xl text-black">
           User Lists

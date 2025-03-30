@@ -112,9 +112,9 @@ export const Catgeorylist = () => {
 
   return (
     <>
-      <section className="shadow-s1 p-8 rounded-lg">
+      <section className="bg-gradient-to-b from-blue-50 to-white shadow-2xl p-8 rounded-lg">
         <div className="flex justify-between">
-          <Title level={5} className="font-normal">
+          <Title level={5} className="font-bold text-2xl">
             Category Lists
           </Title>
           <NavLink to="/category/create">

@@ -155,11 +155,12 @@ export const WinningBidList = () => {
 
     fetchWonServices();
   }, []);
+  
 
   return (
-    <section className="shadow-s1 p-8 rounded-lg">
+    <section className="bg-gradient-to-b from-blue-50 to-white shadow-2xl p-8 rounded-lg">
       <div className="flex justify-between">
-        <Title level={5} className="font-normal">Winning Product Lists</Title>
+        <Title level={5} className="font-bold text-2xl">Winning Product Lists</Title>
       </div>
       <br />
       {loading ? (
@@ -198,7 +199,7 @@ export const WinningBidList = () => {
                
                 <div className="mt-3 flex items-center space-x-3">
                   <img
-                    src={serviceOwner?.photo || "https://via.placeholder.com/40"}
+                    src={"https://cdn-icons-png.flaticon.com/512/2202/2202112.png"}
                     alt="Owner"
                     className="w-10 h-10 rounded-full border"
                   />

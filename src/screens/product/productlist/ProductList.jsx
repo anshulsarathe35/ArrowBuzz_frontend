@@ -215,6 +215,115 @@
 
 //anshul frontend new 
 
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import { PrimaryButton, Title } from "../../../router";
+// import { NavLink } from "react-router-dom";
+// import { AiOutlinePlus } from "react-icons/ai";
+
+// export const ProductList = () => {
+//   //anshul frontend new
+//   const [products, setProducts] = useState([]);
+//   const [imageUrl, setImageUrl] = useState("");
+
+//   const fetchProducts = async () => {
+//     const token = localStorage.getItem("token");
+//     try {
+//       const response = await axios.get("http://localhost:5001/api/service/user", {
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
+
+//       setProducts(response.data); 
+//       console.log(response);
+//       const filePath = response?.data[0]?.image?.filePath;
+
+//       if (filePath) {
+//         setImageUrl(`http://localhost:5001/${filePath}`);
+//       } else {
+//         setImageUrl("../images/home/hero.webp"); 
+//       }
+//     } catch (error) {
+//       console.error("Error fetching products:", error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchProducts();
+//   }, []);
+
+//   return (
+//     <>
+//       <section className="bg-gradient-to-b from-blue-50 to-white text-black shadow-2xl p-8 rounded-3xl">
+//         <div className="flex justify-between items-center mb-6">
+//           <Title level={5} className="font-semibold text-2xl text-blue-700">
+//             Product Lists
+//           </Title>
+//           <NavLink to="/add">
+//             <PrimaryButton className="flex items-center gap-3 px-5 py-3 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md transition-transform hover:scale-105">
+//               <AiOutlinePlus size={20} />
+//               <span>Create Product</span>
+//             </PrimaryButton>
+//           </NavLink>
+//         </div>
+//         <hr className="my-5 border-gray-300" />
+
+     
+//         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+//           {products.length === 0 ? (
+//             <p className="text-center col-span-3 text-gray-500">
+//               No products available.
+//             </p>
+//           ) : (
+//             products.map((product) => (
+//               <div
+//                 key={product._id}
+//                 className="bg-white text-gray-800 border border-gray-200 shadow-lg rounded-xl p-5 transition-transform hover:scale-105 cursor-pointer hover:shadow-xl"
+//               >
+               
+//                 <div className="h-48 w-full rounded-lg overflow-hidden mb-4">
+//                   <img
+//                     src={
+//                       imageUrl ||
+//                       "../images/home/hero.webp"
+//                     }
+//                     alt={product.name}
+//                     className="w-full h-full object-cover transition-transform hover:scale-105"
+//                   />
+//                 </div>
+
+               
+//                 <h3 className="text-lg font-bold text-blue-700 mb-1">
+//                   {product.title}
+//                 </h3>
+//                 <p className="text-sm text-gray-500 mb-2">
+//                   Category: <span className="text-blue-600">{product.category}</span>
+//                 </p>
+//                 <p className="text-sm text-gray-500 mb-2">
+//                   Price: <span className="text-green-600 font-bold">₹{product.price}</span>
+//                 </p>
+//                 <p className="text-sm text-gray-500">
+//                   {product.description?.substring(0, 60)}...
+//                 </p>
+
+             
+//                 <NavLink to={`/product/viewdetails/${product._id}`}>
+//                   <PrimaryButton className="mt-4 w-full py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md">
+//                     View Details
+//                   </PrimaryButton>
+//                 </NavLink>
+//               </div>
+//             ))
+//           )}
+//         </div>
+//       </section>
+//     </>
+//   );
+// };
+
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { PrimaryButton, Title } from "../../../router";
@@ -222,38 +331,7 @@ import { NavLink } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 
 export const ProductList = () => {
-  // const [products, setProducts] = useState([]);
-  
-  // let imageUrl = "";
-  // const fetchProducts = async () => {
-  //   const token = localStorage.getItem("token"); 
-  //   try {
-  //     const response = await axios.get("http://localhost:5001/api/service/user", {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`, 
-  //       },
-  //     });
-  //     setProducts(response.data);
-  //     console.log(response)
-  //     imageUrl = response?.data?.image?.filePath
-  //     // console.log(imageUrl)
-  //   ? `http://localhost:5001/${response.image.filePath}`
-  //   : "../images/home/hero.webp";
-  //   } catch (error) {
-  //     console.error("Error fetching products:", error);
-  //   }
-  // };
-  // console.log(imageUrl)
-
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, []);
-
-  //anshul frontend new
   const [products, setProducts] = useState([]);
-  const [imageUrl, setImageUrl] = useState("");
 
   const fetchProducts = async () => {
     const token = localStorage.getItem("token");
@@ -265,14 +343,10 @@ export const ProductList = () => {
         },
       });
 
-      setProducts(response.data); 
-      console.log(response);
-      const filePath = response?.data[0]?.image?.filePath;
-
-      if (filePath) {
-        setImageUrl(`http://localhost:5001/${filePath}`);
+      if (response.data) {
+        setProducts(response.data); 
       } else {
-        setImageUrl("../images/home/hero.webp"); 
+        console.error("Invalid response format");
       }
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -299,7 +373,6 @@ export const ProductList = () => {
         </div>
         <hr className="my-5 border-gray-300" />
 
-     
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {products.length === 0 ? (
             <p className="text-center col-span-3 text-gray-500">
@@ -311,19 +384,18 @@ export const ProductList = () => {
                 key={product._id}
                 className="bg-white text-gray-800 border border-gray-200 shadow-lg rounded-xl p-5 transition-transform hover:scale-105 cursor-pointer hover:shadow-xl"
               >
-               
                 <div className="h-48 w-full rounded-lg overflow-hidden mb-4">
                   <img
                     src={
-                      imageUrl ||
-                      "../images/home/hero.webp"
+                      product?.image?.filePath
+                        ? `http://localhost:5001/${product.image.filePath.replace(/\\/g, "/")}`
+                        : "../images/home/hero.webp" // Fallback image
                     }
                     alt={product.name}
                     className="w-full h-full object-cover transition-transform hover:scale-105"
                   />
                 </div>
 
-               
                 <h3 className="text-lg font-bold text-blue-700 mb-1">
                   {product.title}
                 </h3>
@@ -337,7 +409,6 @@ export const ProductList = () => {
                   {product.description?.substring(0, 60)}...
                 </p>
 
-             
                 <NavLink to={`/product/viewdetails/${product._id}`}>
                   <PrimaryButton className="mt-4 w-full py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md">
                     View Details

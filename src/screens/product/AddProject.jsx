@@ -615,7 +615,7 @@ export const AddProduct = () => {
   };
 
   return (
-    <section className="bg-gray-100 shadow-lg p-10 rounded-2xl">
+    <section className="bg-gradient-to-b from-blue-50 to-white shadow-2xl p-10 rounded-2xl">
       <Title level={5} className="font-semibold text-black mb-5">
         Create Product
       </Title>
