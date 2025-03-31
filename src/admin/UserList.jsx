@@ -170,7 +170,7 @@ export const UserList = () => {
                 <th scope="col" className="px-6 py-5 text-right">Action</th>
               </tr>
             </thead>
-            <tbody>
+            {/* <tbody>
               {users.map((user, index) => (
                 <tr
                   key={user._id}
@@ -183,7 +183,7 @@ export const UserList = () => {
                   <td className="px-6 py-4">
                     <ProfileCard>
                       <img
-                        src={user.photo || User2}
+                        src={`http://localhost:5001${user.photo}` || User2}
                         alt={user.name}
                         className="w-10 h-10 rounded-full"
                       />
@@ -202,7 +202,44 @@ export const UserList = () => {
                   </td>
                 </tr>
               ))}
-            </tbody>
+            </tbody> */}
+            <tbody>
+  {users
+    .slice()
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort by createdAt DESC
+    .map((user, index) => (
+      <tr
+        key={user._id}
+        className="bg-gray-100 border-b hover:bg-gray-50"
+      >
+        <td className="px-6 py-4">{index + 1}</td>
+        <td className="px-6 py-4 capitalize">{user.name}</td>
+        <td className="px-6 py-4">{user.email}</td>
+        <td className="px-6 py-4 capitalize">{user.role || "User"}</td>
+        <td className="px-6 py-4">
+          <ProfileCard>
+            <img
+              src={`http://localhost:5001${user.photo}` || User2}
+              alt={user.name}
+              className="w-10 h-10 rounded-full"
+            />
+          </ProfileCard>
+        </td>
+        <td className="px-6 py-4">
+          {new Date(user.createdAt).toDateString()}
+        </td>
+        <td className="py-4 flex justify-end px-8">
+          <NavLink
+            to={`/getparticularuser/${user._id}`}
+            className="font-medium text-indigo-500"
+          >
+            <TiEyeOutline size={25} />
+          </NavLink>
+        </td>
+      </tr>
+    ))}
+</tbody>
+
           </table>
         </div>
       )}

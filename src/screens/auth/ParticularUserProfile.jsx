@@ -20,6 +20,7 @@ export const ParticularUserProfile = () => {
       const response = await axios.get(`http://localhost:5001/api/users/get-particularuser/${id}`, {
         withCredentials: true,
       });
+      console.log(response.data)
 
       setUser(response.data);
     } catch (error) {
@@ -56,7 +57,7 @@ export const ParticularUserProfile = () => {
         
         <div className="profile flex items-center gap-8">
         <img
-            src={user.photo || "https://img.freepik.com/premium-photo/profile-icon-white-background_941097-162486.jpg"}
+            src={`http://localhost:5001${user.photo}` || "https://cdn-icons-png.flaticon.com/512/2202/2202112.png"}
             alt="Profile"
             className="w-24 h-24 rounded-full object-cover"
         />
